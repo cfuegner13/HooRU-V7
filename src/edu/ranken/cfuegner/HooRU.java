@@ -13,4 +13,18 @@ public class HooRU
 
 
 
+    private static final int MINMONTH = 1;
+    private static final int MAXMONTH = 12;
+    private static final int MINDAY = 1;
+    private static final int MAXDAY28 = 28;
+    private static final int MAXDAY29 = 29;
+    private static final int MAXDAY30 = 30;
+    private static final int MAXDAY31 = 31;
+    private static final int MINYEAR = 1900;
+    private static final int MAXYEAR = 2018;
+
+
+    // Declare and Initialize Global Variables
+    private static int birthMonth = 0;
+
 } // END public class HooRU
