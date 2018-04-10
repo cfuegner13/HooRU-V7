@@ -46,21 +46,107 @@ public class HooRU
     private static boolean again = false;
     private static boolean lcv1 = false;
 
+    // Main Driver
+    public static void main(String[] args)
+    { // START main(String[] args)
+
+        // Local variables (TO: Main)
+
+
+        // Do/While Loop
+        do
+        {
+            userName = getUserName();
+            userMonth = inputBirthMonth();
+            findMonthName();
+            inputBirthYear();
+            leapYearCalculation();
+            inputBirthDay();
+            findAstrologicalSign();
+            // dayOfTheWeekCalculation();
+            displayBirthDay();
+            again = inputRunProgram();
+        }
+        while (again);
+
+        System.exit(0);
+
+    } // END main(String[] args)
+
+    // Get User Name
+    public static String getUserName()
+    {
+        // Local variables (TO: getUserName)
+        String inputStr = "";
+        String localUserName = "";
+        boolean validInput = false;
+
+        while (validInput == false)
+        {
+            // Get user input in String format
+            inputStr = JOptionPane.showInputDialog("Please enter your name: ");
+
+            // Check for blank input
+            if (inputStr.equals(""))
+            {
+                System.out.println(ERROR_BLANK_NAME);
+                validInput = false;
+            }
+            else
+            {
+                localUserName = inputStr;
+                validInput = true;
+            }
+        }
+
+        // return string
+        return localUserName;
+    }
+
+
     // Input birth month with loop for invalid entry
     public static int inputBirthMonth()
     {
-        String inputStr = JOptionPane.showInputDialog("Please enter your birth month number (between " +
-                MINMONTH + " - " + MAXMONTH + "): ");
-        userMonth = Integer.parseInt(inputStr);
+        // Local variables (TO: getUserMonth)
+        String inputStr = "";
+        int localUserMonth = 0;
+        boolean validInput = false;
 
-        while ((userMonth < MINMONTH) || (userMonth > MAXMONTH))
+        while (validInput == false)
         {
-            inputStr = JOptionPane.showInputDialog(ERROR_BLANK_YEAR + "Please enter your birth month number (between " +
+            // Get user input in String format
+            inputStr = JOptionPane.showInputDialog("Please enter your birth month number (between " +
                     MINMONTH + " - " + MAXMONTH + "): ");
-            userMonth = Integer.parseInt(inputStr);
+
+            // Check for blank input
+            if (inputStr.equals(""))
+            {
+                System.out.println(ERROR_BLANK_MONTH);
+                validInput = false;
+            }
+            else
+            {
+                localUserMonth = Integer.parseInt(inputStr);
+
+                // Check for out-of-range input
+                if ((localUserMonth < MINMONTH) || (localUserMonth > MAXMONTH))
+                {
+                    System.out.println(ERROR_OOR_MONTH);
+                    validInput = false;
+                }
+                // If program reaches here, user entered a valid birth month with no errors
+                else
+                {
+
+                    validInput = true;
+                }
+
+            }
         }
 
-        return userMonth;
+        // Return int
+        return localUserMonth;
+
     }
 
     // Find monthName based on number entered by user
@@ -353,24 +439,7 @@ public class HooRU
     }
     //hi
 
-    // Program Main
-    public static void main(String[] args)
-    {
-        do {
-            inputBirthMonth();
-            findMonthName();
-            inputBirthYear();
-            leapYearCalculation();
-            inputBirthDay();
-            findAstrologicalSign();
-            // dayOfTheWeekCalculation();
-            displayBirthDay();
-            again = inputRunProgram();
-        }
-        while (again);
 
-        System.exit(0);
-    }
 
 
 
