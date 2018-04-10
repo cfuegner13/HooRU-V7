@@ -41,8 +41,9 @@ public class HooRU
         private static String monthName = "";
         private static boolean isLeapYear = false;
         // Loop Control
-        private static boolean again = true;
-        
+        private static boolean again = false;
+        private static boolean lcv1 = false;
+
 
 
 
