@@ -4,12 +4,19 @@ public class HooRU
 { // START public class HooRU
 
     // Global Constants
-    private static String ERROR_BLANK_NAME  = "Blank Input, Name field cannot be left blank!";
-    private static String ERROR_BLANK_YEAR  = "Blank Input, Year field cannot be left blank!";
-    private static String ERROR_BLANK_MONTH  = "Blank Input, Year field cannot be left blank!";
-    private static String ERROR_YEAR        = "Input invalid, Please enter a year between 1900 and 2018.";
-    private static String ERROR_MONTH       = "Input invalid, Please enter a month between 1 - 12.";
-    private static String ERROR_DAY         = "Input invalid, Please enter a day between 1 - ";
+        // Blank/Empty Input Error Messages
+        private static String ERROR_BLANK_NAME      = "Blank Input, Name field cannot be left blank!";
+        private static String ERROR_BLANK_YEAR      = "Blank Input, Year field cannot be left blank!";
+        private static String ERROR_BLANK_MONTH     = "Blank Input, Month field cannot be left blank!";
+        private static String ERROR_BLANK_DAY       = "Blank Input, Day field cannot be left blank!";
+        // OOR (Out of Range) Input Error Messages
+        private static String ERROR_OOR_YEAR        = "Input invalid, Please enter a year between 1900 and 2018. (EX: 1956)";
+        private static String ERROR_OOR_MONTH       = "Input invalid, Please enter a month between 1 - 12. (EX: 10)";
+        private static String ERROR_OOR_DAY         = "Input invalid, Please enter a day between 1 - "; // Intelligent day range knowing, if the month has 28 - 31 days.
+        // Non-Numerical Input Error Messages
+        private static String ERROR_INPUT_YEAR      = "Input invalid, Year input must be numbers only! (EX: 1956)";
+        private static String ERROR_INPUT_MONTH     = "Input invalid, Month input must be numbers only! (EX: 10)";
+        private static String ERROR_INPUT_DAY       = "Input invalid, Day input must be numbers only! (EX: 5)";
 
 
 
