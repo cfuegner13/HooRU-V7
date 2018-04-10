@@ -6,146 +6,61 @@ public class HooRU
 { // START public class HooRU
 
     // Global Constants
-        // Blank/Empty Input Error Messages
-        private static final String ERROR_BLANK_NAME      = "Blank Input, Name field cannot be left blank!";
-        private static final String ERROR_BLANK_YEAR      = "Blank Input, Year field cannot be left blank!";
-        private static final String ERROR_BLANK_MONTH     = "Blank Input, Month field cannot be left blank!";
-        private static final String ERROR_BLANK_DAY       = "Blank Input, Day field cannot be left blank!";
-        // OOR (Out of Range) Input Error Messages
-        private static final String ERROR_OOR_YEAR        = "Input invalid, Please enter a year between 1900 and 2018. (EX: 1956)";
-        private static final String ERROR_OOR_MONTH       = "Input invalid, Please enter a month between 1 - 12. (EX: 10)";
-        private static final String ERROR_OOR_DAY         = "Input invalid, Please enter a day between 1 - "; // Intelligent day range knowing, if the month has 28 - 31 days.
-        // Non-Numerical Input Error Messages
-        private static final String ERROR_INPUT_YEAR      = "Input invalid, Year input must be numbers only! (EX: 1956)";
-        private static final String ERROR_INPUT_MONTH     = "Input invalid, Month input must be numbers only! (EX: 10)";
-        private static final String ERROR_INPUT_DAY       = "Input invalid, Day input must be numbers only! (EX: 5)";
-        // Class constants
-        private static final int MINMONTH = 1;
-        private static final int MAXMONTH = 12;
-        private static final int MINDAY = 1;
-        private static final int MAXDAY28 = 28;
-        private static final int MAXDAY29 = 29;
-        private static final int MAXDAY30 = 30;
-        private static final int MAXDAY31 = 31;
-        private static final int MINYEAR = 1900;
-        private static final int MAXYEAR = 2018;
+    // Blank/Empty Input Error Messages
+    private static final String ERROR_BLANK_NAME      = "Blank Input, Name field cannot be left blank!";
+    private static final String ERROR_BLANK_YEAR      = "Blank Input, Year field cannot be left blank!";
+    private static final String ERROR_BLANK_MONTH     = "Blank Input, Month field cannot be left blank!";
+    private static final String ERROR_BLANK_DAY       = "Blank Input, Day field cannot be left blank!";
+    // OOR (Out of Range) Input Error Messages
+    private static final String ERROR_OOR_YEAR        = "Input invalid, Please enter a year between 1900 and 2018. (EX: 1956)";
+    private static final String ERROR_OOR_MONTH       = "Input invalid, Please enter a month between 1 - 12. (EX: 10)";
+    private static final String ERROR_OOR_DAY         = "Input invalid, Please enter a day between 1 - "; // Intelligent day range knowing, if the month has 28 - 31 days.
+    // Non-Numerical Input Error Messages
+    private static final String ERROR_INPUT_YEAR      = "Input invalid, Year input must be numbers only! (EX: 1956)";
+    private static final String ERROR_INPUT_MONTH     = "Input invalid, Month input must be numbers only! (EX: 10)";
+    private static final String ERROR_INPUT_DAY       = "Input invalid, Day input must be numbers only! (EX: 5)";
+    // Class constants
+    private static final int MINMONTH = 1;
+    private static final int MAXMONTH = 12;
+    private static final int MINDAY = 1;
+    private static final int MAXDAY28 = 28;
+    private static final int MAXDAY29 = 29;
+    private static final int MAXDAY30 = 30;
+    private static final int MAXDAY31 = 31;
+    private static final int MINYEAR = 1900;
+    private static final int MAXYEAR = 2018;
 
     // Declare and initialize GLOBAL (CLASS) program variables
-        // User Info
-        private static String userName = "";
-        private static int userDay = 0;
-        private static int userMonth = 0;
-        private static int userYear = 0;
-        // Other Info
-        private static String astrologicalSign = "";
-        private static String zodiacInformation = "";
-        private static int currentAge = 0;
-        private static String monthName = "";
-        private static boolean isLeapYear = false;
-        // Loop Control
-        private static boolean again = false;
-        private static boolean lcv1 = false;
-
-    // Main Driver
-    public static void main(String[] args)
-    { // START main(String[] args)
-
-        // Local variables (TO: Main)
-
-
-        // Do/While Loop
-        do
-            {
-                userName = getUserName();
-                userMonth = inputBirthMonth();
-                findMonthName();
-                inputBirthYear();
-                leapYearCalculation();
-                inputBirthDay();
-                // dayOfTheWeekCalculation();
-                displayBirthDay();
-                again = inputRunProgram();
-            }
-        while (again);
-
-        System.exit(0);
-
-    } // END main(String[] args)
-
-    // Get User Name
-    public static String getUserName()
-    {
-        // Local variables (TO: getUserName)
-        String inputStr = "";
-        String localUserName = "";
-        boolean validInput = false;
-
-        while (validInput == false)
-        {
-            // Get user input in String format
-            inputStr = JOptionPane.showInputDialog("Please enter your name: ");
-
-            // Check for blank input
-            if (inputStr.equals(""))
-            {
-                System.out.println(ERROR_BLANK_NAME);
-                validInput = false;
-            }
-            else
-            {
-                localUserName = inputStr;
-                validInput = true;
-            }
-        }
-
-        // return string
-        return localUserName;
-    }
-
+    // User Info
+    private static String userName = "";
+    private static int userDay = 0;
+    private static int userMonth = 0;
+    private static int userYear = 0;
+    // Other Info
+    private static String astrologicalSign = "";
+    private static String zodiacInformation = "";
+    private static int currentAge = 0;
+    private static String monthName = "";
+    private static boolean isLeapYear = false;
+    // Loop Control
+    private static boolean again = false;
+    private static boolean lcv1 = false;
 
     // Input birth month with loop for invalid entry
     public static int inputBirthMonth()
     {
-        // Local variables (TO: getUserMonth)
-        String inputStr = "";
-        int localUserMonth = 0;
-        boolean validInput = false;
+        String inputStr = JOptionPane.showInputDialog("Please enter your birth month number (between " +
+                MINMONTH + " - " + MAXMONTH + "): ");
+        userMonth = Integer.parseInt(inputStr);
 
-        while (validInput == false)
+        while ((userMonth < MINMONTH) || (userMonth > MAXMONTH))
         {
-            // Get user input in String format
-            inputStr = JOptionPane.showInputDialog("Please enter your birth month number (between " +
+            inputStr = JOptionPane.showInputDialog(ERROR_BLANK_YEAR + "Please enter your birth month number (between " +
                     MINMONTH + " - " + MAXMONTH + "): ");
-
-            // Check for blank input
-            if (inputStr.equals(""))
-            {
-                System.out.println(ERROR_BLANK_MONTH);
-                validInput = false;
-            }
-            else
-            {
-                localUserMonth = Integer.parseInt(inputStr);
-
-                // Check for out-of-range input
-                if ((localUserMonth < MINMONTH) || (localUserMonth > MAXMONTH))
-                {
-                    System.out.println(ERROR_OOR_MONTH);
-                    validInput = false;
-                }
-                // If program reaches here, user entered a valid birth month with no errors
-                else
-                {
-
-                    validInput = true;
-                }
-
-            }
+            userMonth = Integer.parseInt(inputStr);
         }
 
-        // Return int
-        return localUserMonth;
-
+        return userMonth;
     }
 
     // Find monthName based on number entered by user
@@ -281,45 +196,129 @@ public class HooRU
 
     // Find monthName based on number entered by user
     public static String findAstrologicalSign() {
-        switch (userYear) {
-            case 1:
-                monthName = "January";
+        switch (userMonth) {
+            case 1: // January
+                if (userDay > 19)
+                {
+                    astrologicalSign = "Aquarius";
+                }
+                else
+                {
+                    astrologicalSign = "Capricorn";
+                }
                 break;
-            case 2:
-                monthName = "February";
+            case 2: // February
+                if (userDay > 18)
+                {
+                    astrologicalSign = "Pisces";
+                }
+                else
+                {
+                    astrologicalSign = "Aquarius";
+                }
                 break;
-            case 3:
-                monthName = "March";
+            case 3: // March
+                if (userDay > 20)
+                {
+                    astrologicalSign = "Aries";
+                }
+                else
+                {
+                    astrologicalSign = "Pisces";
+                }
                 break;
-            case 4:
-                monthName = "April";
+            case 4: // April
+                if (userDay > 19)
+                {
+                    astrologicalSign = "Taurus";
+                }
+                else
+                {
+                    astrologicalSign = "Aries";
+                }
                 break;
-            case 5:
-                monthName = "May";
+            case 5: // May
+                if (userDay > 20)
+                {
+                    astrologicalSign = "Gemini";
+                }
+                else
+                {
+                    astrologicalSign = "Taurus";
+                }
                 break;
-            case 6:
-                monthName = "June";
+            case 6: // June
+                if (userDay > 20)
+                {
+                    astrologicalSign = "Cancer";
+                }
+                else
+                {
+                    astrologicalSign = "Gemini";
+                }
                 break;
-            case 7:
-                monthName = "July";
+            case 7: // July
+                if (userDay > 22)
+                {
+                    astrologicalSign = "Leo";
+                }
+                else
+                {
+                    astrologicalSign = "Cancer";
+                }
                 break;
-            case 8:
-                monthName = "August";
+            case 8: // August
+                if (userDay > 22)
+                {
+                    astrologicalSign = "Virgo";
+                }
+                else
+                {
+                    astrologicalSign = "Leo";
+                }
                 break;
-            case 9:
-                monthName = "September";
+            case 9: // September
+                if (userDay > 22)
+                {
+                    astrologicalSign = "Libra";
+                }
+                else
+                {
+                    astrologicalSign = "Virgo";
+                }
                 break;
-            case 10:
-                monthName = "October";
+            case 10:    // October
+                if (userDay > 22)
+                {
+                    astrologicalSign = "Scorpio";
+                }
+                else
+                {
+                    astrologicalSign = "Libra";
+                }
                 break;
-            case 11:
-                monthName = "November";
+            case 11:    // November
+                if (userDay > 21)
+                {
+                    astrologicalSign = "Sagittarius";
+                }
+                else
+                {
+                    astrologicalSign = "Scorpio";
+                }
                 break;
-            case 12:
-                monthName = "December";
+            case 12:    // December
+                if (userDay > 21)
+                {
+                    astrologicalSign = "Capricorn";
+                }
+                else
+                {
+                    astrologicalSign = "Sagittarius";
+                }
                 break;
             default:
-                monthName = "?";
+                astrologicalSign = "?";
                 break;
         }
 
@@ -354,7 +353,24 @@ public class HooRU
     }
     //hi
 
+    // Program Main
+    public static void main(String[] args)
+    {
+        do {
+            inputBirthMonth();
+            findMonthName();
+            inputBirthYear();
+            leapYearCalculation();
+            inputBirthDay();
+            findAstrologicalSign();
+            // dayOfTheWeekCalculation();
+            displayBirthDay();
+            again = inputRunProgram();
+        }
+        while (again);
 
+        System.exit(0);
+    }
 
 
 
