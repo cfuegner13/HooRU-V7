@@ -56,8 +56,8 @@ public class HooRU
         // Do/While Loop
         do
             {
-                getUserName();
-                inputBirthMonth();
+                userName = getUserName();
+                userMonth = inputBirthMonth();
                 findMonthName();
                 inputBirthYear();
                 leapYearCalculation();
@@ -98,6 +98,7 @@ public class HooRU
             }
         }
 
+        // return string
         return localUserName;
     }
 
@@ -105,18 +106,46 @@ public class HooRU
     // Input birth month with loop for invalid entry
     public static int inputBirthMonth()
     {
-        String inputStr = JOptionPane.showInputDialog("Please enter your birth month number (between " +
-                MINMONTH + " - " + MAXMONTH + "): ");
-        userMonth = Integer.parseInt(inputStr);
+        // Local variables (TO: getUserMonth)
+        String inputStr = "";
+        int localUserMonth = 0;
+        boolean validInput = false;
 
-        while ((userMonth < MINMONTH) || (userMonth > MAXMONTH))
+        while (validInput == false)
         {
-            inputStr = JOptionPane.showInputDialog(ERROR_BLANK_YEAR + "Please enter your birth month number (between " +
+            // Get user input in String format
+            inputStr = JOptionPane.showInputDialog("Please enter your birth month number (between " +
                     MINMONTH + " - " + MAXMONTH + "): ");
-            userMonth = Integer.parseInt(inputStr);
+
+            // Check for blank input
+            if (inputStr.equals(""))
+            {
+                System.out.println(ERROR_BLANK_MONTH);
+                validInput = false;
+            }
+            else
+            {
+                localUserMonth = Integer.parseInt(inputStr);
+
+                // Check for out-of-range input
+                if ((localUserMonth < MINMONTH) || (localUserMonth > MAXMONTH))
+                {
+                    System.out.println(ERROR_OOR_MONTH);
+                    validInput = false;
+                }
+                // If program reaches here, user entered a valid birth month with no errors
+                else
+                {
+
+                    validInput = true;
+                }
+
+            }
         }
 
-        return userMonth;
+        // Return int
+        return localUserMonth;
+
     }
 
     // Find monthName based on number entered by user
