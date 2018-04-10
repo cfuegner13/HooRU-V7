@@ -7,18 +7,18 @@ public class HooRU
 
     // Global Constants
         // Blank/Empty Input Error Messages
-        private static String ERROR_BLANK_NAME      = "Blank Input, Name field cannot be left blank!";
-        private static String ERROR_BLANK_YEAR      = "Blank Input, Year field cannot be left blank!";
-        private static String ERROR_BLANK_MONTH     = "Blank Input, Month field cannot be left blank!";
-        private static String ERROR_BLANK_DAY       = "Blank Input, Day field cannot be left blank!";
+        private static final String ERROR_BLANK_NAME      = "Blank Input, Name field cannot be left blank!";
+        private static final String ERROR_BLANK_YEAR      = "Blank Input, Year field cannot be left blank!";
+        private static final String ERROR_BLANK_MONTH     = "Blank Input, Month field cannot be left blank!";
+        private static final String ERROR_BLANK_DAY       = "Blank Input, Day field cannot be left blank!";
         // OOR (Out of Range) Input Error Messages
-        private static String ERROR_OOR_YEAR        = "Input invalid, Please enter a year between 1900 and 2018. (EX: 1956)";
-        private static String ERROR_OOR_MONTH       = "Input invalid, Please enter a month between 1 - 12. (EX: 10)";
-        private static String ERROR_OOR_DAY         = "Input invalid, Please enter a day between 1 - "; // Intelligent day range knowing, if the month has 28 - 31 days.
+        private static final String ERROR_OOR_YEAR        = "Input invalid, Please enter a year between 1900 and 2018. (EX: 1956)";
+        private static final String ERROR_OOR_MONTH       = "Input invalid, Please enter a month between 1 - 12. (EX: 10)";
+        private static final String ERROR_OOR_DAY         = "Input invalid, Please enter a day between 1 - "; // Intelligent day range knowing, if the month has 28 - 31 days.
         // Non-Numerical Input Error Messages
-        private static String ERROR_INPUT_YEAR      = "Input invalid, Year input must be numbers only! (EX: 1956)";
-        private static String ERROR_INPUT_MONTH     = "Input invalid, Month input must be numbers only! (EX: 10)";
-        private static String ERROR_INPUT_DAY       = "Input invalid, Day input must be numbers only! (EX: 5)";
+        private static final String ERROR_INPUT_YEAR      = "Input invalid, Year input must be numbers only! (EX: 1956)";
+        private static final String ERROR_INPUT_MONTH     = "Input invalid, Month input must be numbers only! (EX: 10)";
+        private static final String ERROR_INPUT_DAY       = "Input invalid, Day input must be numbers only! (EX: 5)";
         // Class constants
         private static final int MINMONTH = 1;
         private static final int MAXMONTH = 12;
@@ -51,22 +51,22 @@ public class HooRU
     {
         String inputStr = JOptionPane.showInputDialog("Please enter your birth month number (between " +
                 MINMONTH + " - " + MAXMONTH + "): ");
-        month = Integer.parseInt(inputStr);
+        userMonth = Integer.parseInt(inputStr);
 
-        while ((month < MINMONTH) || (month > MAXMONTH))
+        while ((userMonth < MINMONTH) || (userMonth > MAXMONTH))
         {
-            inputStr = JOptionPane.showInputDialog(ERRORMESSAGE + "Please enter your birth month number (between " +
+            inputStr = JOptionPane.showInputDialog(ERROR_BLANK_YEAR + "Please enter your birth month number (between " +
                     MINMONTH + " - " + MAXMONTH + "): ");
-            month = Integer.parseInt(inputStr);
+            userMonth = Integer.parseInt(inputStr);
         }
 
-        return month;
+        return userMonth;
     }
 
     // Find monthName based on number entered by user
     public static String findMonthName()
     {
-        switch (month)
+        switch (userMonth)
         {
             case 1: monthName = "January";
                 break;
@@ -104,22 +104,22 @@ public class HooRU
     {
         String inputStr = JOptionPane.showInputDialog("Please enter your birth year (between " +
                 MINYEAR + " - " + MAXYEAR + "): ");
-        year = Integer.parseInt(inputStr);
+        userYear = Integer.parseInt(inputStr);
 
-        while ((year < MINYEAR) || (year > MAXYEAR))
+        while ((userYear < MINYEAR) || (userYear > MAXYEAR))
         {
-            inputStr = JOptionPane.showInputDialog(ERRORMESSAGE + "Please enter your birth year (between " +
+            inputStr = JOptionPane.showInputDialog(ERROR_BLANK_YEAR + "Please enter your birth year (between " +
                     MINYEAR + " - " + MAXYEAR + "): ");
-            year = Integer.parseInt(inputStr);
+            userYear = Integer.parseInt(inputStr);
         }
 
-        return Math.abs(year);
+        return Math.abs(userYear);
     }
 
     // Calculate if user inputted year is a leap year
     public static boolean leapYearCalculation()
     {
-        boolean ly = ((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0));
+        boolean ly = ((userYear % 4 == 0) && (userYear % 100 != 0) || (userYear % 400 == 0));
 
         if (ly)
         {
@@ -136,69 +136,69 @@ public class HooRU
     // Input birth day with loop for invalid entry
     public static int inputBirthDay()
     {
-        if (month == 2)
+        if (userMonth == 2)
         {
             String inputStr = JOptionPane.showInputDialog("Please enter your birth day (between " +
                     MINDAY + " - " + MAXDAY28 + "): ");
-            day = Integer.parseInt(inputStr);
+            userDay  = Integer.parseInt(inputStr);
 
-            while ((day < MINDAY) || (day > MAXDAY28)) {
-                inputStr = JOptionPane.showInputDialog(ERRORMESSAGE + "Please enter your birth day (between " +
+            while ((userDay  < MINDAY) || (userDay  > MAXDAY28)) {
+                inputStr = JOptionPane.showInputDialog(ERROR_BLANK_YEAR + "Please enter your birth day (between " +
                         MINDAY + " - " + MAXDAY28 + "): ");
-                day = Integer.parseInt(inputStr);
+                userDay  = Integer.parseInt(inputStr);
             }
 
             if (isLeapYear)
             {
                 inputStr = JOptionPane.showInputDialog("Please enter your birth day (between " +
                         MINDAY + " - " + MAXDAY29 + "): ");
-                day = Integer.parseInt(inputStr);
+                userDay  = Integer.parseInt(inputStr);
 
-                while ((day < MINDAY) || (day > MAXDAY29)) {
-                    inputStr = JOptionPane.showInputDialog(ERRORMESSAGE + "Please enter your birth day (between " +
+                while ((userDay  < MINDAY) || (userDay  > MAXDAY29)) {
+                    inputStr = JOptionPane.showInputDialog(ERROR_BLANK_YEAR + "Please enter your birth day (between " +
                             MINDAY + " - " + MAXDAY29 + "): ");
-                    day = Integer.parseInt(inputStr);
+                    userDay  = Integer.parseInt(inputStr);
                 }
             }
         }
 
-        else if (month == 4 || month == 6 || month == 9 || month == 11)
+        else if (userMonth == 4 || userMonth == 6 || userMonth == 9 || userMonth == 11)
         {
             String inputStr = JOptionPane.showInputDialog("Please enter your birth day (between " +
                     MINDAY + " - " + MAXDAY30 + "): ");
-            day = Integer.parseInt(inputStr);
+            userDay  = Integer.parseInt(inputStr);
 
-            while ((day < MINDAY) || (day > MAXDAY30)) {
-                inputStr = JOptionPane.showInputDialog(ERRORMESSAGE + "Please enter your birth day (between " +
+            while ((userDay  < MINDAY) || (userDay  > MAXDAY30)) {
+                inputStr = JOptionPane.showInputDialog(ERROR_BLANK_YEAR + "Please enter your birth day (between " +
                         MINDAY + " - " + MAXDAY30 + "): ");
-                day = Integer.parseInt(inputStr);
+                userDay  = Integer.parseInt(inputStr);
             }
 
-            return Math.abs(day);
+            return Math.abs(userDay );
         }
 
         else    // (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
         {
             String inputStr = JOptionPane.showInputDialog("Please enter your birth day (between " +
                     MINDAY + " - " + MAXDAY31 + "): ");
-            day = Integer.parseInt(inputStr);
+            userDay  = Integer.parseInt(inputStr);
 
-            while ((day < MINDAY) || (day > MAXDAY31))
+            while ((userDay < MINDAY) || (userDay  > MAXDAY31))
             {
-                inputStr = JOptionPane.showInputDialog(ERRORMESSAGE + "Please enter your birth day (between " +
+                inputStr = JOptionPane.showInputDialog(ERROR_BLANK_YEAR + "Please enter your birth day (between " +
                         MINDAY + " - " + MAXDAY31 + "): ");
-                day = Integer.parseInt(inputStr);
+                userDay  = Integer.parseInt(inputStr);
             }
         }
 
-        return Math.abs(day);
+        return Math.abs(userDay );
     }
 
     public static void displayBirthDay()
     {
         String outputStr = "";
-        outputStr += monthName + " " + day + ", " + year + "\n";
-        outputStr += month + "/" + day + "/" + year;
+        outputStr += monthName + " " + userDay  + ", " + userYear + "\n";
+        outputStr += userMonth + "/" + userDay  + "/" + userYear;
 
         JOptionPane.showMessageDialog(null, outputStr);
     }
