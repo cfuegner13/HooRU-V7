@@ -46,6 +46,62 @@ public class HooRU
         private static boolean again = false;
         private static boolean lcv1 = false;
 
+    // Main Driver
+    public static void main(String[] args)
+    { // START main(String[] args)
+
+        // Local variables (TO: Main)
+
+
+        // Do/While Loop
+        do
+            {
+                getUserName();
+                inputBirthMonth();
+                findMonthName();
+                inputBirthYear();
+                leapYearCalculation();
+                inputBirthDay();
+                // dayOfTheWeekCalculation();
+                displayBirthDay();
+                again = inputRunProgram();
+            }
+        while (again);
+
+        System.exit(0);
+
+    } // END main(String[] args)
+
+    // Get User Name
+    public static String getUserName()
+    {
+        // Local variables (TO: getUserName)
+        String inputStr = "";
+        String localUserName = "";
+        boolean validInput = false;
+
+        while (validInput == false)
+        {
+            // Get user input in String format
+            inputStr = JOptionPane.showInputDialog("Please enter your name: ");
+
+            // Check for blank input
+            if (inputStr.equals(""))
+            {
+                System.out.println(ERROR_BLANK_NAME);
+                validInput = false;
+            }
+            else
+            {
+                localUserName = inputStr;
+                validInput = true;
+            }
+        }
+
+        return localUserName;
+    }
+
+
     // Input birth month with loop for invalid entry
     public static int inputBirthMonth()
     {
@@ -268,23 +324,7 @@ public class HooRU
         return true;
     }
 
-    // Program Main
-    public static void main(String[] args)
-        {
-            do {
-                inputBirthMonth();
-                findMonthName();
-                inputBirthYear();
-                leapYearCalculation();
-                inputBirthDay();
-                // dayOfTheWeekCalculation();
-                displayBirthDay();
-                again = inputRunProgram();
-            }
-            while (again);
 
-            System.exit(0);
-        }
 
 
 
