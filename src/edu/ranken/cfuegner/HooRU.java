@@ -194,6 +194,53 @@ public class HooRU
         return Math.abs(userDay );
     }
 
+    // Find monthName based on number entered by user
+    public static String findAstrologicalSign() {
+        switch (userYear) {
+            case 1:
+                monthName = "January";
+                break;
+            case 2:
+                monthName = "February";
+                break;
+            case 3:
+                monthName = "March";
+                break;
+            case 4:
+                monthName = "April";
+                break;
+            case 5:
+                monthName = "May";
+                break;
+            case 6:
+                monthName = "June";
+                break;
+            case 7:
+                monthName = "July";
+                break;
+            case 8:
+                monthName = "August";
+                break;
+            case 9:
+                monthName = "September";
+                break;
+            case 10:
+                monthName = "October";
+                break;
+            case 11:
+                monthName = "November";
+                break;
+            case 12:
+                monthName = "December";
+                break;
+            default:
+                monthName = "?";
+                break;
+        }
+
+        return monthName;
+    }
+
     public static void displayBirthDay()
     {
         String outputStr = "";
@@ -223,22 +270,21 @@ public class HooRU
 
     // Program Main
     public static void main(String[] args)
-    {
-        do
         {
-            inputBirthMonth();
-            findMonthName();
-            inputBirthYear();
-            leapYearCalculation();
-            inputBirthDay();
-            // dayOfTheWeekCalculation();
-            displayBirthDay();
-            again = inputRunProgram();
+            do {
+                inputBirthMonth();
+                findMonthName();
+                inputBirthYear();
+                leapYearCalculation();
+                inputBirthDay();
+                // dayOfTheWeekCalculation();
+                displayBirthDay();
+                again = inputRunProgram();
+            }
+            while (again);
+
+            System.exit(0);
         }
-        while (again);
-
-        System.exit(0);
-
 
 
 
