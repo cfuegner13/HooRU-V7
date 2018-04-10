@@ -25,6 +25,24 @@ public class HooRU
 
 
     // Declare and Initialize Global Variables
-    private static int birthMonth = 0;
+    private static int day = 0;
+    private static int month = 0;
+    private static int year = 0;
+    private static String currentAge;
+    private static String name;
+    private static String astrologicalSign;
+    private static String zodiacInformation;
+    private static String monthName;
+    private static boolean isLeapYear = false;
+    private static boolean again = true;
+
+    //
+
+
+
+
+
+
+
 
 } // END public class HooRU
