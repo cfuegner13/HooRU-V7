@@ -4,13 +4,13 @@ public class HooRU
 { // START public class HooRU
 
     // Global Constants
-    private static String ERROR_NAME_BLANK  = "Input invalid, Name cannot be left blank!";
+    private static String ERROR_BLANK_NAME  = "Blank Input, Name field cannot be left blank!";
+    private static String ERROR_BLANK_YEAR  = "Blank Input, Year field cannot be left blank!";
+    private static String ERROR_BLANK_MONTH  = "Blank Input, Year field cannot be left blank!";
+    private static String ERROR_YEAR        = "Input invalid, Please enter a year between 1900 and 2018.";
+    private static String ERROR_MONTH       = "Input invalid, Please enter a month between 1 - 12.";
+    private static String ERROR_DAY         = "Input invalid, Please enter a day between 1 - ";
 
-    private static int MINYEAR              = 1900;     // Min year
-    private static int MAXYEAR              = 2018;     // Max year
-    private static int MINMONTH             = 1;        // Min month number
-    private static int MAXMONTH             = 12;       // Max month number
-    private static int MINDAY               = 1;        // Min day number
 
 
 } // END public class HooRU
