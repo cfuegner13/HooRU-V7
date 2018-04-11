@@ -54,6 +54,10 @@ public class HooRU
     private static int currentAge = 0;
     private static String monthName = "";
     private static boolean isLeapYear = false;
+    private static String astrologicalStrengths = "";
+    private static String astrologicalWeaknesses = "";
+    private static String astrologicalLikes = "";
+    private static String astrologicalDislikes = "";
     // Loop Control
     private static boolean again = false;
     private static boolean lcv1 = false;
@@ -472,120 +476,217 @@ public class HooRU
                 if (userDay > 19)
                 {
                     astrologicalSign = "Aquarius";
+                    astrologicalStrengths = "Intelligent, energetic, humane, and honest";
+                    astrologicalWeaknesses = "Distant, lost, detached, alone, outcast";
+                    astrologicalLikes = "Fun company, rich and interesting anecdotes, exciting experiences, strange events";
+                    astrologicalDislikes = "Intimate relationships, peace of mind, boring activities, responsibilities";
                 }
                 else
                 {
                     astrologicalSign = "Capricorn";
+                    astrologicalStrengths = "Ambition, discipline, patience";
+                    astrologicalWeaknesses = "Cold, stubborn, Pessimistic";
+                    astrologicalLikes = "Successful career, trustworthiness, stable relationships";
+                    astrologicalDislikes = "Change, advice, easy routes";
                 }
                 break;
             case 2: // February
                 if (userDay > 18)
                 {
                     astrologicalSign = "Pisces";
+                    astrologicalStrengths = "";
+                    astrologicalWeaknesses = "";
+                    astrologicalLikes = "";
+                    astrologicalDislikes = "";
                 }
                 else
                 {
                     astrologicalSign = "Aquarius";
+                    astrologicalStrengths = "Intelligent, energetic, humane, and honest";
+                    astrologicalWeaknesses = "Distant, lost, detached, alone, outcast";
+                    astrologicalLikes = "Fun company, rich and interesting anecdotes, exciting experiences, strange events";
+                    astrologicalDislikes = "Intimate relationships, peace of mind, boring activities, responsibilities";
+
                 }
                 break;
             case 3: // March
                 if (userDay > 20)
                 {
                     astrologicalSign = "Aries";
+                    astrologicalStrengths = "Passionate, positive, courageous";
+                    astrologicalWeaknesses = "Undisciplined, stubborn, arrogant";
+                    astrologicalLikes = "Advancing their work and relationships, to take on problems, help others in need";
+                    astrologicalDislikes = "giving up without a fight, mean opinions from others";
                 }
                 else
                 {
                     astrologicalSign = "Pisces";
+                    astrologicalStrengths = "";
+                    astrologicalWeaknesses = "";
+                    astrologicalLikes = "";
+                    astrologicalDislikes = "";
                 }
                 break;
             case 4: // April
                 if (userDay > 19)
                 {
                     astrologicalSign = "Taurus";
+                    astrologicalStrengths = "Practical, dependable, patient";
+                    astrologicalWeaknesses = "Materialistic, lazy, possessive";
+                    astrologicalLikes = "Helping others resolve challenges, not giving up on tough situations";
+                    astrologicalDislikes = "Giving away material items, loss, change";
                 }
                 else
                 {
                     astrologicalSign = "Aries";
+                    astrologicalStrengths = "Passionate, positive, courageous";
+                    astrologicalWeaknesses = "Undisciplined, stubborn, arrogant";
+                    astrologicalLikes = "Advancing their work and relationships, to take on problems, help others in need";
+                    astrologicalDislikes = "giving up without a fight, mean opinions from others";
                 }
                 break;
             case 5: // May
                 if (userDay > 20)
                 {
                     astrologicalSign = "Gemini";
+                    astrologicalStrengths = "Intellectual, humorous, enthusiastic";
+                    astrologicalWeaknesses = "Inconsistent,impatient, anxious";
+                    astrologicalLikes = "Mental stimulation, new ideas and experiences";
+                    astrologicalDislikes = "Multitasking, staying in one place, uninterested in others problems";
                 }
                 else
                 {
                     astrologicalSign = "Taurus";
+                    astrologicalStrengths = "Practical, dependable, patient";
+                    astrologicalWeaknesses = "Materialistic, lazy, possessive";
+                    astrologicalLikes = "Helping others resolve challenges, not giving up on tough situations";
+                    astrologicalDislikes = "Giving away material items, loss, change";
                 }
                 break;
             case 6: // June
                 if (userDay > 20)
                 {
                     astrologicalSign = "Cancer";
+                    astrologicalStrengths = "Loving, compassionate, generous";
+                    astrologicalWeaknesses = "Oversensitive, clingy, moody";
+                    astrologicalLikes = "Listening to others, giving all to those they love";
+                    astrologicalDislikes = "Being attached to the past, looking towards the future";
                 }
                 else
                 {
                     astrologicalSign = "Gemini";
+                    astrologicalStrengths = "Intellectual, humorous, enthusiastic";
+                    astrologicalWeaknesses = "Inconsistent,impatient, anxious";
+                    astrologicalLikes = "Mental stimulation, new ideas and experiences";
+                    astrologicalDislikes = "Multitasking, staying in one place, uninterested in others problems";
                 }
                 break;
             case 7: // July
                 if (userDay > 22)
                 {
                     astrologicalSign = "Leo";
+                    astrologicalStrengths = "";
+                    astrologicalWeaknesses = "";
+                    astrologicalLikes = "";
+                    astrologicalDislikes = "";
                 }
                 else
                 {
                     astrologicalSign = "Cancer";
+                    astrologicalStrengths = "Loving, compassionate, generous";
+                    astrologicalWeaknesses = "Oversensitive, clingy, moody";
+                    astrologicalLikes = "Listening to others, giving all to those they love";
+                    astrologicalDislikes = "Being attached to the past, looking towards the future";
                 }
                 break;
             case 8: // August
                 if (userDay > 22)
                 {
                     astrologicalSign = "Virgo";
+                    astrologicalStrengths = "";
+                    astrologicalWeaknesses = "";
+                    astrologicalLikes = "";
+                    astrologicalDislikes = "";
                 }
                 else
                 {
                     astrologicalSign = "Leo";
+                    astrologicalStrengths = "";
+                    astrologicalWeaknesses = "";
+                    astrologicalLikes = "";
+                    astrologicalDislikes = "";
                 }
                 break;
             case 9: // September
                 if (userDay > 22)
                 {
                     astrologicalSign = "Libra";
+                    astrologicalStrengths = "";
+                    astrologicalWeaknesses = "";
+                    astrologicalLikes = "";
+                    astrologicalDislikes = "";
                 }
                 else
                 {
                     astrologicalSign = "Virgo";
+                    astrologicalStrengths = "";
+                    astrologicalWeaknesses = "";
+                    astrologicalLikes = "";
+                    astrologicalDislikes = "";
                 }
                 break;
             case 10:    // October
                 if (userDay > 22)
                 {
                     astrologicalSign = "Scorpio";
+                    astrologicalStrengths = "";
+                    astrologicalWeaknesses = "";
+                    astrologicalLikes = "";
+                    astrologicalDislikes = "";
                 }
                 else
                 {
                     astrologicalSign = "Libra";
+                    astrologicalStrengths = "";
+                    astrologicalWeaknesses = "";
+                    astrologicalLikes = "";
+                    astrologicalDislikes = "";
                 }
                 break;
             case 11:    // November
                 if (userDay > 21)
                 {
                     astrologicalSign = "Sagittarius";
+                    astrologicalStrengths = "";
+                    astrologicalWeaknesses = "";
+                    astrologicalLikes = "";
+                    astrologicalDislikes = "";
                 }
                 else
                 {
                     astrologicalSign = "Scorpio";
+                    astrologicalStrengths = "";
+                    astrologicalWeaknesses = "";
+                    astrologicalLikes = "";
+                    astrologicalDislikes = "";
                 }
                 break;
             case 12:    // December
                 if (userDay > 21)
                 {
                     astrologicalSign = "Capricorn";
+                    astrologicalStrengths = "Ambition, discipline, patience";
+                    astrologicalWeaknesses = "Cold, stubborn, Pesimistic";
+                    astrologicalLikes = "Successful career, trustworthiness, stable relationships";
+                    astrologicalDislikes = "Change, advice, easy routes";
                 }
                 else
                 {
                     astrologicalSign = "Sagittarius";
+                    astrologicalStrengths = "";
+                    astrologicalWeaknesses = "";
+                    astrologicalLikes = "";
+                    astrologicalDislikes = "";
                 }
                 break;
             default:
