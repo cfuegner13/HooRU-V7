@@ -1,6 +1,7 @@
 package edu.ranken.cfuegner;
 
 import javax.swing.*;
+import java.time.LocalDate;
 
 public class HooRU
 { // START public class HooRU
@@ -16,9 +17,14 @@ public class HooRU
     private static final String ERROR_OOR_MONTH       = "Input invalid, Please enter a month between 1 - 12. (EX: 10)";
     private static final String ERROR_OOR_DAY         = "Input invalid, Please enter a day between 1 - "; // Intelligent day range knowing, if the month has 28 - 31 days.
     // Non-Numerical Input Error Messages
+    private static final String ERROR_INPUT_NAME      = "Input invalid, Name input must be alphanumeric characters only! (EX: Colin)";
     private static final String ERROR_INPUT_YEAR      = "Input invalid, Year input must be numbers only! (EX: 1956)";
     private static final String ERROR_INPUT_MONTH     = "Input invalid, Month input must be numbers only! (EX: 10)";
     private static final String ERROR_INPUT_DAY       = "Input invalid, Day input must be numbers only! (EX: 5)";
+    // Validity Messages
+    private static final String YEAR_INPUT_VALID  = "Year input was valid, Thank You!";
+    private static final String MONTH_INPUT_VALID = "Month input was valid, Thank You!";
+    private static final String DAY_INPUT_VALID   = "Day input was valid, Thank You!";
     // MIN/MAX Range Constants
     private static final int MINMONTH = 1;
     private static final int MAXMONTH = 12;
@@ -37,7 +43,9 @@ public class HooRU
     private static int userMonth = 0;
     private static int userYear = 0;
     // Other Info
+    private static int monthMaxDays = 0;
     private static String astrologicalSign = "";
+    private static String dayOfWeek = "";
     private static String zodiacInformation = "";
     private static int currentAge = 0;
     private static String monthName = "";
@@ -45,6 +53,8 @@ public class HooRU
     // Loop Control
     private static boolean again = false;
     private static boolean lcv1 = false;
+
+    //******************************************************************
 
     // Main Driver
     public static void main(String[] args)
@@ -57,11 +67,13 @@ public class HooRU
         do
         {
             userName = getUserName();
+            userYear = inputBirthYear();
+            isLeapYear = leapYearCalculation();
             userMonth = inputBirthMonth();
             findMonthName();
-            inputBirthYear();
-            leapYearCalculation();
-            inputBirthDay();
+            monthMaxDays = calculateMaxDaysInMonth();
+            userDay = inputBirthDay();
+            dayOfWeek = calculateDayOfWeek();
             findAstrologicalSign();
             // dayOfTheWeekCalculation();
             displayBirthDay();
@@ -72,6 +84,8 @@ public class HooRU
         System.exit(0);
 
     } // END main(String[] args)
+
+    //******************************************************************
 
     // Get User Name
     public static String getUserName()
@@ -92,10 +106,16 @@ public class HooRU
                 System.out.println(ERROR_BLANK_NAME);
                 validInput = false;
             }
-            else
+            // Check for non-alphanumeric input
+            else if (inputStr.matches("^[A-Za-z]+$"))
             {
                 localUserName = inputStr;
                 validInput = true;
+            }
+            else
+            {
+                System.out.println(ERROR_INPUT_NAME);
+                validInput = false;
             }
         }
 
@@ -103,6 +123,96 @@ public class HooRU
         return localUserName;
     }
 
+    //******************************************************************
+
+    // Input birth year and validate
+    public static int inputBirthYear()
+    { // START inputBirthYear()
+
+        // Local variables (TO: getUserYear)
+        String inputStr = "";
+        int localUserYear = 0;
+        boolean validInput = false;
+
+        while (validInput == false)
+        {
+            inputStr = JOptionPane.showInputDialog("Please enter your birth year in the format #### \n (Between " +
+                    MINYEAR + " - " + MAXYEAR + ") \n Your birth year: ");
+
+            // Check for blank input
+            if (inputStr.equals(""))
+            {
+                System.out.println(ERROR_BLANK_YEAR);
+                validInput = false;
+            }
+
+            // Check for non-numeric input
+            else if (inputStr.matches("^[0-9]+$"))
+            {
+                localUserYear = Integer.parseInt(inputStr);
+
+                // Check for out-of-range input
+                if ((localUserYear < MINYEAR) || (localUserYear > MAXYEAR))
+                {
+                    System.out.println(ERROR_OOR_YEAR);
+                    validInput = false;
+                }
+
+                // If program reaches here, user entered a valid birth year with no errors
+                else
+                {
+                    System.out.println(YEAR_INPUT_VALID);
+                    validInput = true;
+                }
+            }
+            else
+            {
+                System.out.println(ERROR_INPUT_YEAR);
+                validInput = false;
+            }
+
+        }
+
+        // Return the localuseryear in absolute value
+        return Math.abs(localUserYear);
+
+    } // END inputBirthYear()
+
+    //******************************************************************
+
+    public static boolean leapYearCalculation()
+    { // START leapYearCalculation(int uy)
+
+        // Local variables (TO: leapYearCalculation)
+        boolean localIsLeapYear = false;
+        int passedUserYear = userYear;
+
+        // Leap year calculation
+        if ((passedUserYear % 4 == 0) && (passedUserYear % 100 != 0) || (passedUserYear % 400 == 0))
+        {
+            localIsLeapYear = true;
+        }
+        else
+        {
+            localIsLeapYear = false;
+        }
+
+        // Display user awareness information
+        if (localIsLeapYear == true)
+        {
+            System.out.println("\nYour birth year IS a leap year.");
+        }
+        else if (localIsLeapYear == false)
+        {
+            System.out.println("\nYour birth year IS NOT a leap year.");
+        }
+
+        // Return boolean
+        return localIsLeapYear;
+
+    } // END leapYearCalculation(int uy)
+
+    //******************************************************************
 
     // Input birth month with loop for invalid entry
     public static int inputBirthMonth()
@@ -149,6 +259,8 @@ public class HooRU
 
     }
 
+    //******************************************************************
+
     // Find monthName based on number entered by user
     public static String findMonthName()
     {
@@ -185,6 +297,77 @@ public class HooRU
         return monthName;
     }
 
+    //******************************************************************
+
+    // Find the max and min days in each month
+    public static int calculateMaxDaysInMonth()
+    { // START calculateMaxDaysInMonth()
+
+        // Local variables (TO: calculateMaxDaysInMonth)
+        int passedUserMonth = userMonth;
+        boolean passedIsLeapYear = isLeapYear;
+        int numOfDaysMax = 0;
+
+        // Calculate max days in month
+        switch (passedUserMonth)
+        {
+            case 1:
+                numOfDaysMax = 31;
+                break;
+            case 2:
+                if (passedIsLeapYear == true)
+                {
+                    numOfDaysMax = 29;
+                }
+                else
+                {
+                    numOfDaysMax = 28;
+                }
+                break;
+            case 3:
+                numOfDaysMax = 31;
+                break;
+            case 4:
+                numOfDaysMax = 30;
+                break;
+            case 5:
+                numOfDaysMax = 31;
+                break;
+            case 6:
+                numOfDaysMax = 30;
+                break;
+            case 7:
+                numOfDaysMax = 31;
+                break;
+            case 8:
+                numOfDaysMax = 31;
+                break;
+            case 9:
+                numOfDaysMax = 30;
+                break;
+            case 10:
+                numOfDaysMax = 31;
+                break;
+            case 11:
+                numOfDaysMax = 30;
+                break;
+            case 12:
+                numOfDaysMax = 31;
+                break;
+            default:
+                break;
+        }
+
+        // Display user awareness information
+        System.out.println("\nYour birth month's max day is: " + numOfDaysMax);
+
+        // Return int
+        return numOfDaysMax;
+
+    } // END calculateMaxDaysInMonth()
+
+    //******************************************************************
+
     // Input birth day with loop for invalid entry
     public static int inputBirthDay()
     {
@@ -193,101 +376,74 @@ public class HooRU
         int localUserDay = 0;
         boolean validInput = false;
 
-        if (userMonth == 2)
-        {
-            inputStr = JOptionPane.showInputDialog("Please enter your birth day (between " +
-                    MINDAY + " - " + MAXDAY28 + "): ");
-            userDay  = Integer.parseInt(inputStr);
 
-            while ((userDay  < MINDAY) || (userDay  > MAXDAY28)) {
-                inputStr = JOptionPane.showInputDialog(ERROR_BLANK_YEAR + "Please enter your birth day (between " +
-                        MINDAY + " - " + MAXDAY28 + "): ");
-                userDay  = Integer.parseInt(inputStr);
+        while (validInput == false)
+        {
+            inputStr = JOptionPane.showInputDialog("Please enter your birth day in the format ##, \n " +
+                    "(between " + MINDAY + " - " + monthMaxDays + ") \n Your birth day: ");
+
+            // Check for blank input
+            if (inputStr.equals(""))
+            {
+                System.out.println(ERROR_BLANK_DAY);
+                validInput = false;
             }
 
-            if (isLeapYear)
+            // Check for non-numeric input
+            else if (!inputStr.matches("^[0-9]+$"))
             {
-                inputStr = JOptionPane.showInputDialog("Please enter your birth day (between " +
-                        MINDAY + " - " + MAXDAY29 + "): ");
-                userDay  = Integer.parseInt(inputStr);
+                System.out.println(ERROR_INPUT_DAY);
+                validInput = false;
+            }
+            else
+            {
+                // Convert user input to int format
+                localUserDay = Integer.parseInt(inputStr);
 
-                while ((userDay  < MINDAY) || (userDay  > MAXDAY29)) {
-                    inputStr = JOptionPane.showInputDialog(ERROR_BLANK_YEAR + "Please enter your birth day (between " +
-                            MINDAY + " - " + MAXDAY29 + "): ");
-                    userDay  = Integer.parseInt(inputStr);
+                // Check for out-of-range input
+                if ((localUserDay < MINDAY) || (localUserDay > monthMaxDays))
+                {
+                    System.out.println(ERROR_OOR_DAY);
+                    validInput = false;
+                }
+
+                // If program reaches here, user entered a valid birth DAY with no errors
+                else
+                {
+                    System.out.println(DAY_INPUT_VALID);
+                    validInput = true;
                 }
             }
         }
 
-        else if (userMonth == 4 || userMonth == 6 || userMonth == 9 || userMonth == 11)
-        {
-            inputStr = JOptionPane.showInputDialog("Please enter your birth day (between " +
-                    MINDAY + " - " + MAXDAY30 + "): ");
-            userDay  = Integer.parseInt(inputStr);
-
-            while ((userDay  < MINDAY) || (userDay  > MAXDAY30)) {
-                inputStr = JOptionPane.showInputDialog(ERROR_BLANK_YEAR + "Please enter your birth day (between " +
-                        MINDAY + " - " + MAXDAY30 + "): ");
-                userDay  = Integer.parseInt(inputStr);
-            }
-
-            return Math.abs(userDay );
-        }
-
-        else    // (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
-        {
-            inputStr = JOptionPane.showInputDialog("Please enter your birth day (between " +
-                    MINDAY + " - " + MAXDAY31 + "): ");
-            userDay  = Integer.parseInt(inputStr);
-
-            while ((userDay < MINDAY) || (userDay  > MAXDAY31))
-            {
-                inputStr = JOptionPane.showInputDialog(ERROR_BLANK_YEAR + "Please enter your birth day (between " +
-                        MINDAY + " - " + MAXDAY31 + "): ");
-                userDay  = Integer.parseInt(inputStr);
-            }
-        }
-
-        return Math.abs(userDay );
+        // Return int in absolute value format
+        return Math.abs(localUserDay);
     }
 
-    // Input birth year with loop for invalid entry
-    public static int inputBirthYear()
-    {
-        String inputStr = JOptionPane.showInputDialog("Please enter your birth year (between " +
-                MINYEAR + " - " + MAXYEAR + "): ");
-        userYear = Integer.parseInt(inputStr);
+    //******************************************************************
 
-        while ((userYear < MINYEAR) || (userYear > MAXYEAR))
-        {
-            inputStr = JOptionPane.showInputDialog(ERROR_BLANK_YEAR + "Please enter your birth year (between " +
-                    MINYEAR + " - " + MAXYEAR + "): ");
-            userYear = Integer.parseInt(inputStr);
-        }
+    // Calculate the day of the week (BONUS)
+    public static String calculateDayOfWeek()
+    { // START calculateDayOfWeek()
 
-        return Math.abs(userYear);
-    }
+        // Local variables (TO: calculateDayOfWeek)
+        String localDayOfWeek = "";
 
-    // Calculate if user inputted year is a leap year
-    public static boolean leapYearCalculation()
-    {
-        boolean ly = ((userYear % 4 == 0) && (userYear % 100 != 0) || (userYear % 400 == 0));
+        // Calculate day of week
+        localDayOfWeek = LocalDate.of(userYear, userMonth, userDay).getDayOfWeek().toString();
 
-        if (ly)
-        {
-            isLeapYear = true;
-        }
-        else
-        {
-            isLeapYear = false;
-        }
+        // Display user awareness information
+        System.out.println("\nYour birth DAY falls on a: " + localDayOfWeek);
 
-        return isLeapYear;
-    }
+        // Return String
+        return localDayOfWeek;
+
+    } // END calculateDayOfWeek()
+
+    //******************************************************************
 
 
-
-    // Find monthName based on number entered by user
+    // Find Astrological Sign
     public static String findAstrologicalSign() {
         switch (userMonth) {
             case 1: // January
@@ -415,7 +571,7 @@ public class HooRU
                 break;
         }
 
-        return monthName;
+        return astrologicalSign;
     }
 
     public static void displayBirthDay()
