@@ -715,6 +715,8 @@ public class HooRU
             case 2020:
             case 2032:
                 zodiacSign = "Rat";
+                zodiacPartners = "Dragon, Monkey, and Ox";
+                zodiacCharacteristics = "Intelligent, charming, quick-witted, practical, and ambitious";
                 break;
             // Ox
             case 1925:
@@ -728,6 +730,8 @@ public class HooRU
             case 2021:
             case 2033:
                 zodiacSign = "Ox";
+                zodiacPartners = "Rat, Snake, and Rooster";
+                zodiacCharacteristics = "Hard-working, honest, creative, ambitious, cautious, patient, and handle things steadily";
                 break;
             // Tiger
             case 1926:
@@ -741,6 +745,8 @@ public class HooRU
             case 2022:
             case 2034:
                 zodiacSign = "Tiger";
+                zodiacPartners = "Horse, Dog, and Pig";
+                zodiacCharacteristics = "Friendly, brave, competitive, charming, and endowed with good luck and authority";
                 break;
             // Rabbit
             case 1927:
@@ -754,6 +760,8 @@ public class HooRU
             case 2023:
             case 2035:
                 zodiacSign = "Rabbit";
+                zodiacPartners = "Sheep, Dog, and Pig";
+                zodiacCharacteristics = "Kind-hearted, friendly, intelligent, cautious, skillful, gentle, quick, and live long";
                 break;
             // Dragon
             case 1916:
@@ -767,6 +775,8 @@ public class HooRU
             case 2012:
             case 2024:
                 zodiacSign = "Dragon";
+                zodiacPartners = "Rat, Monkey, and Rooster";
+                zodiacCharacteristics = "Powerful, kind-hearted, successful, innovative, brave, healthy, courageous, and enterprising";
                 break;
             // Snake
             case 1917:
@@ -780,6 +790,8 @@ public class HooRU
             case 2013:
             case 2025:
                 zodiacSign = "Snake";
+                zodiacPartners = "Ox, Rooster, and Monkey";
+                zodiacCharacteristics = "Wise, discreet, agile, attractive, and full of sympathy";
                 break;
             // Horse
             case 1918:
@@ -793,6 +805,8 @@ public class HooRU
             case 2014:
             case 2026:
                 zodiacSign = "Horse";
+                zodiacPartners = "Tiger, Sheep, and Dog";
+                zodiacCharacteristics = "Wise, discreet, agile, attractive, and full of sympathy";
                 break;
             // Sheep
             case 1919:
@@ -806,6 +820,8 @@ public class HooRU
             case 2015:
             case 2027:
                 zodiacSign = "Sheep";
+                zodiacPartners = "Rabbit, Horse, and Pig";
+                zodiacCharacteristics = "Polite, mild-mannered, shy, imaginative, determined, and have good taste";
                 break;
             // Monkey
             case 1920:
@@ -819,6 +835,8 @@ public class HooRU
             case 2016:
             case 2028:
                 zodiacSign = "Monkey";
+                zodiacPartners = "Rat, Dragon, and Snake";
+                zodiacCharacteristics = "Wise, intelligent, confident, charismatic, loyal, inventive, and have leadership";
                 break;
             // Rooster
             case 1921:
@@ -832,6 +850,8 @@ public class HooRU
             case 2017:
             case 2029:
                 zodiacSign = "Rooster";
+                zodiacPartners = "Ox, Dragon, and Snake";
+                zodiacCharacteristics = "Beautiful, kind-hearted, hard-working, courageous, independent, humorous, and honest";
                 break;
             // Dog
             case 1922:
@@ -845,6 +865,8 @@ public class HooRU
             case 2018:
             case 2030:
                 zodiacSign = "Dog";
+                zodiacPartners = "Tiger, Rabbit, and Horse";
+                zodiacCharacteristics = "Honest, friendly, faithful, loyal, smart, straightforward, venerable, and have a strong sense of responsibility";
                 break;
             // Pig (Boar)
             case 1923:
@@ -858,9 +880,13 @@ public class HooRU
             case 2019:
             case 2031:
                 zodiacSign = "Pig (Boar)";
+                zodiacPartners = "Sheep, Rabbit, and Tiger";
+                zodiacCharacteristics = "Happy, easygoing, honest, trusting, educated, sincere, and brave";
                 break;
             default:
                 zodiacSign = "?";
+                zodiacPartners = "No Matches";
+                zodiacCharacteristics = "Unknown";
                 break;
         }
 
