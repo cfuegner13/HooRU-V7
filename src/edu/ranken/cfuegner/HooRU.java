@@ -22,6 +22,7 @@ public class HooRU
     private static final String ERROR_INPUT_MONTH     = "Input invalid, Month input must be numbers only! (EX: 10)";
     private static final String ERROR_INPUT_DAY       = "Input invalid, Day input must be numbers only! (EX: 5)";
     // Validity Messages
+    private static final String NAME_INPUT_VALID  = "Name input was valid, Thank You!";
     private static final String YEAR_INPUT_VALID  = "Year input was valid, Thank You!";
     private static final String MONTH_INPUT_VALID = "Month input was valid, Thank You!";
     private static final String DAY_INPUT_VALID   = "Day input was valid, Thank You!";
@@ -103,17 +104,20 @@ public class HooRU
             // Check for blank input
             if (inputStr.equals(""))
             {
+                JOptionPane.showMessageDialog(null, ERROR_BLANK_NAME);
                 System.out.println(ERROR_BLANK_NAME);
                 validInput = false;
             }
             // Check for non-alphanumeric input
             else if (inputStr.matches("^[A-Za-z]+$"))
             {
+                System.out.println(NAME_INPUT_VALID);
                 localUserName = inputStr;
                 validInput = true;
             }
             else
             {
+                JOptionPane.showMessageDialog(null, ERROR_INPUT_NAME);
                 System.out.println(ERROR_INPUT_NAME);
                 validInput = false;
             }
@@ -142,6 +146,7 @@ public class HooRU
             // Check for blank input
             if (inputStr.equals(""))
             {
+                JOptionPane.showMessageDialog(null, ERROR_INPUT_YEAR);
                 System.out.println(ERROR_BLANK_YEAR);
                 validInput = false;
             }
@@ -154,6 +159,7 @@ public class HooRU
                 // Check for out-of-range input
                 if ((localUserYear < MINYEAR) || (localUserYear > MAXYEAR))
                 {
+                    JOptionPane.showMessageDialog(null, ERROR_OOR_YEAR);
                     System.out.println(ERROR_OOR_YEAR);
                     validInput = false;
                 }
@@ -167,6 +173,7 @@ public class HooRU
             }
             else
             {
+                JOptionPane.showMessageDialog(null, ERROR_INPUT_YEAR);
                 System.out.println(ERROR_INPUT_YEAR);
                 validInput = false;
             }
@@ -231,16 +238,20 @@ public class HooRU
             // Check for blank input
             if (inputStr.equals(""))
             {
+                JOptionPane.showMessageDialog(null, ERROR_BLANK_MONTH);
                 System.out.println(ERROR_BLANK_MONTH);
                 validInput = false;
             }
-            else
+
+            // Check for non-numeric input
+            else if (inputStr.matches("^[0-9]+$"))
             {
                 localUserMonth = Integer.parseInt(inputStr);
 
                 // Check for out-of-range input
                 if ((localUserMonth < MINMONTH) || (localUserMonth > MAXMONTH))
                 {
+                    JOptionPane.showMessageDialog(null, ERROR_OOR_MONTH);
                     System.out.println(ERROR_OOR_MONTH);
                     validInput = false;
                 }
@@ -250,7 +261,12 @@ public class HooRU
 
                     validInput = true;
                 }
-
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, ERROR_INPUT_MONTH);
+                System.out.println(ERROR_INPUT_MONTH);
+                validInput = false;
             }
         }
 
@@ -385,6 +401,7 @@ public class HooRU
             // Check for blank input
             if (inputStr.equals(""))
             {
+                JOptionPane.showMessageDialog(null, ERROR_BLANK_DAY);
                 System.out.println(ERROR_BLANK_DAY);
                 validInput = false;
             }
@@ -392,6 +409,7 @@ public class HooRU
             // Check for non-numeric input
             else if (!inputStr.matches("^[0-9]+$"))
             {
+                JOptionPane.showMessageDialog(null, ERROR_INPUT_DAY);
                 System.out.println(ERROR_INPUT_DAY);
                 validInput = false;
             }
@@ -403,6 +421,7 @@ public class HooRU
                 // Check for out-of-range input
                 if ((localUserDay < MINDAY) || (localUserDay > monthMaxDays))
                 {
+                    JOptionPane.showMessageDialog(null, ERROR_OOR_DAY);
                     System.out.println(ERROR_OOR_DAY);
                     validInput = false;
                 }
