@@ -1032,8 +1032,9 @@ public class HooRU
         outputStr += "Characteristics: " + zodiacCharacteristics + "\n";
 
 
-        JOptionPane.showMessageDialog(null, outputStr);
         System.out.println(outputStr);
+        JOptionPane.showMessageDialog(null, outputStr);
+
     }
 
     // Ask user if they would like to run the program again
