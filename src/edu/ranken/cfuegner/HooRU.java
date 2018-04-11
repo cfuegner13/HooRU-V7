@@ -83,6 +83,8 @@ public class HooRU
             userDay = inputBirthDay();
             dayOfWeek = calculateDayOfWeek();
             findAstrologicalSign();
+            findZodiacSign();
+            findZodiacElement();
             // dayOfTheWeekCalculation();
             displayBirthDay();
             again = inputRunProgram();
@@ -989,11 +991,49 @@ public class HooRU
 
     public static void displayBirthDay()
     {
+        // Local variables (TO: displayInfo)
         String outputStr = "";
-        outputStr += monthName + " " + userDay  + ", " + userYear + "\n";
-        outputStr += userMonth + "/" + userDay  + "/" + userYear;
+        String splitFirstLetter = "";
+        String finalFormat = "";
+
+        // Convert day of week to lowercase
+        dayOfWeek = dayOfWeek.toLowerCase();
+
+        // Convert first letter of day of week to uppercase
+        splitFirstLetter = dayOfWeek.substring(0, 1).toUpperCase();
+        finalFormat = splitFirstLetter + dayOfWeek.substring(1);
+
+        outputStr += "Current User: " + userName + "\n";
+        outputStr += "Inputted Current Date and Birthday Information: " + "\n";
+        outputStr += "Today is: " + LocalDate.now() + "\n";
+        outputStr += "Birth Year input: " + userYear + "\n";
+        outputStr += "Birth Month input: " + userMonth + "\n";
+        outputStr += "Birth Day input: " + userDay + "\n";
+        outputStr += "User's Birth Day Of Week: " + finalFormat + "\n";
+        outputStr += "User's Full Birth Day Formatted: " + userMonth + "/" + userDay  + "/" + userYear + "\n";
+        outputStr += "\n";
+        outputStr += "Calculated Current Age Information: " + "\n";
+        outputStr += "Your age is: " + "(CalculateAgeMethod)" + "\n";
+        outputStr += "\n";
+        outputStr += "Calculated Astrological Sign Information: " + "\n";
+        outputStr += "Day of Year born: " + userDay + "\n";
+        outputStr += "Astrological sign: " + astrologicalSign + "\n";
+        outputStr += "Astrological info: -------------------------" + "\n";
+        outputStr += "Strengths: " + astrologicalStrengths + "\n";
+        outputStr += "Weaknesses: " + astrologicalWeaknesses + "\n";
+        outputStr += astrologicalSign + " likes: " + astrologicalLikes + "\n";
+        outputStr += astrologicalSign + " dislikes: " + astrologicalDislikes + "\n";
+        outputStr += "\n";
+        outputStr += "Calculated Chinese Zodiac Information: " + "\n";
+        outputStr += "Chinese Zodiac sign: " + zodiacSign + "\n";
+        outputStr += "Chinese Zodiac info: -----------------------" + "\n";
+        outputStr += "Element: " + zodiacElement + "\n";
+        outputStr += "Partners well with: " + zodiacPartners + "\n";
+        outputStr += "Characteristics: " + zodiacCharacteristics + "\n";
+
 
         JOptionPane.showMessageDialog(null, outputStr);
+        System.out.println(outputStr);
     }
 
     // Ask user if they would like to run the program again
