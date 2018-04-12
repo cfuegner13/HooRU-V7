@@ -2,30 +2,34 @@ package edu.ranken.cfuegner;
 
 import javax.swing.*;
 import java.time.LocalDate;
+import java.time.Period;
 
 public class HooRU
 { // START public class HooRU
 
     // Global Constants
     // Blank/Empty Input Error Messages
-    private static final String ERROR_BLANK_NAME      = "Blank Input, Name field cannot be left blank!";
-    private static final String ERROR_BLANK_YEAR      = "Blank Input, Year field cannot be left blank!";
-    private static final String ERROR_BLANK_MONTH     = "Blank Input, Month field cannot be left blank!";
-    private static final String ERROR_BLANK_DAY       = "Blank Input, Day field cannot be left blank!";
+    private static final String ERROR_BLANK_FIRST_NAME  = "Blank Input, First Name field cannot be left blank!";
+    private static final String ERROR_BLANK_LAST_NAME   = "Blank Input, Last Name field cannot be left blank!";
+    private static final String ERROR_BLANK_YEAR        = "Blank Input, Year field cannot be left blank!";
+    private static final String ERROR_BLANK_MONTH       = "Blank Input, Month field cannot be left blank!";
+    private static final String ERROR_BLANK_DAY         = "Blank Input, Day field cannot be left blank!";
     // OOR (Out of Range) Input Error Messages
-    private static final String ERROR_OOR_YEAR        = "Input invalid, Please enter a year between 1900 and 2018. (EX: 1956)";
-    private static final String ERROR_OOR_MONTH       = "Input invalid, Please enter a month between 1 - 12. (EX: 10)";
-    private static final String ERROR_OOR_DAY         = "Input invalid, Please enter a day between 1 - "; // Intelligent day range knowing, if the month has 28 - 31 days.
+    private static final String ERROR_OOR_YEAR          = "Input invalid, Please enter a year between 1900 and 2018. (EX: 1956)";
+    private static final String ERROR_OOR_MONTH         = "Input invalid, Please enter a month between 1 - 12. (EX: 10)";
+    private static final String ERROR_OOR_DAY           = "Input invalid, Please enter a day between 1 - "; // Intelligent day range knowing, if the month has 28 - 31 days.
     // Non-Numerical Input Error Messages
-    private static final String ERROR_INPUT_NAME      = "Input invalid, Name input must be alphanumeric characters only! (EX: Colin)";
-    private static final String ERROR_INPUT_YEAR      = "Input invalid, Year input must be numbers only! (EX: 1956)";
-    private static final String ERROR_INPUT_MONTH     = "Input invalid, Month input must be numbers only! (EX: 10)";
-    private static final String ERROR_INPUT_DAY       = "Input invalid, Day input must be numbers only! (EX: 5)";
+    private static final String ERROR_INPUT_FIRST_NAME  = "Input invalid, First Name input must be alphanumeric characters only! (EX: Colin)";
+    private static final String ERROR_INPUT_LAST_NAME   = "Input invalid, Last Name input must be alphanumeric characters only! (EX: Colin)";
+    private static final String ERROR_INPUT_YEAR        = "Input invalid, Year input must be numbers only! (EX: 1956)";
+    private static final String ERROR_INPUT_MONTH       = "Input invalid, Month input must be numbers only! (EX: 10)";
+    private static final String ERROR_INPUT_DAY         = "Input invalid, Day input must be numbers only! (EX: 5)";
     // Validity Messages
-    private static final String NAME_INPUT_VALID  = "Name input was valid, Thank You!";
-    private static final String YEAR_INPUT_VALID  = "Year input was valid, Thank You!";
-    private static final String MONTH_INPUT_VALID = "Month input was valid, Thank You!";
-    private static final String DAY_INPUT_VALID   = "Day input was valid, Thank You!";
+    private static final String FIRST_NAME_INPUT_VALID  = "First Name input was valid, Thank You!";
+    private static final String LAST_NAME_INPUT_VALID   = "Last Name input was valid, Thank You!";
+    private static final String YEAR_INPUT_VALID        = "Year input was valid, Thank You!";
+    private static final String MONTH_INPUT_VALID       = "Month input was valid, Thank You!";
+    private static final String DAY_INPUT_VALID         = "Day input was valid, Thank You!";
     // MIN/MAX Range Constants
     private static final int MINMONTH = 1;
     private static final int MAXMONTH = 12;
@@ -39,7 +43,8 @@ public class HooRU
 
     // Declare and initialize GLOBAL (CLASS) program variables
     // User Info
-    private static String userName = "";
+    private static String firstName = "";
+    private static String lastName = "";
     private static int userDay = 0;
     private static int userMonth = 0;
     private static int userYear = 0;
@@ -51,7 +56,10 @@ public class HooRU
     private static String zodiacElement = "";
     private static String zodiacPartners = "";
     private static String zodiacCharacteristics = "";
-    private static int currentAge = 0;
+    private static LocalDate currentDate;
+    private static long ageYears;
+    private static long ageMonths;
+    private static long ageDays;
     private static String monthName = "";
     private static boolean isLeapYear = false;
     private static String astrologicalStrengths = "";
@@ -60,7 +68,7 @@ public class HooRU
     private static String astrologicalDislikes = "";
     // Loop Control
     private static boolean again = false;
-    private static boolean lcv1 = false;
+    // private static boolean lcv1 = false;
 
     //******************************************************************
 
@@ -74,7 +82,8 @@ public class HooRU
         // Do/While Loop
         do
         {
-            userName = getUserName();
+            firstName = getFirstName();
+            lastName = getLastName();
             userYear = inputBirthYear();
             isLeapYear = leapYearCalculation();
             userMonth = inputBirthMonth();
@@ -82,10 +91,10 @@ public class HooRU
             monthMaxDays = calculateMaxDaysInMonth();
             userDay = inputBirthDay();
             dayOfWeek = calculateDayOfWeek();
+            AgeCalculator();
             findAstrologicalSign();
             findZodiacSign();
             findZodiacElement();
-            // dayOfTheWeekCalculation();
             displayBirthDay();
             again = inputRunProgram();
         }
@@ -97,46 +106,88 @@ public class HooRU
 
     //******************************************************************
 
-    // Get User Name
-    public static String getUserName()
+    // Get First Name
+    public static String getFirstName()
     {
         // Local variables (TO: getUserName)
         String inputStr = "";
-        String localUserName = "";
+        String localFirstName = "";
         boolean validInput = false;
 
         while (validInput == false)
         {
             // Get user input in String format
-            inputStr = JOptionPane.showInputDialog("Please enter your name: ");
+            inputStr = JOptionPane.showInputDialog("Please enter your first name: ");
 
             // Check for blank input
             if (inputStr.equals(""))
             {
-                JOptionPane.showMessageDialog(null, ERROR_BLANK_NAME);
-                System.out.println(ERROR_BLANK_NAME);
+                JOptionPane.showMessageDialog(null, ERROR_BLANK_FIRST_NAME);
+                System.out.println(ERROR_BLANK_FIRST_NAME);
                 validInput = false;
             }
             // Check for non-alphanumeric input
             else if (inputStr.matches("^[A-Za-z]+$"))
             {
-                System.out.println(NAME_INPUT_VALID);
-                localUserName = inputStr;
+                System.out.println(FIRST_NAME_INPUT_VALID);
+                localFirstName = inputStr;
                 validInput = true;
             }
             else
             {
-                JOptionPane.showMessageDialog(null, ERROR_INPUT_NAME);
-                System.out.println(ERROR_INPUT_NAME);
+                JOptionPane.showMessageDialog(null, ERROR_INPUT_FIRST_NAME);
+                System.out.println(ERROR_INPUT_FIRST_NAME);
                 validInput = false;
             }
         }
 
         // return string
-        return localUserName;
+        return localFirstName;
     }
 
     //******************************************************************
+
+    // Get Last Name
+    public static String getLastName()
+    {
+        // Local variables (TO: getLastName)
+        String inputStr = "";
+        String localLastName = "";
+        boolean validInput = false;
+
+        while (validInput == false)
+        {
+            // Get user input in String format
+            inputStr = JOptionPane.showInputDialog("Please enter your last name: ");
+
+            // Check for blank input
+            if (inputStr.equals(""))
+            {
+                JOptionPane.showMessageDialog(null, ERROR_BLANK_LAST_NAME);
+                System.out.println(ERROR_BLANK_LAST_NAME);
+                validInput = false;
+            }
+            // Check for non-alphanumeric input
+            else if (inputStr.matches("^[A-Za-z]+$"))
+            {
+                System.out.println(LAST_NAME_INPUT_VALID);
+                localLastName = inputStr;
+                validInput = true;
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, ERROR_INPUT_LAST_NAME);
+                System.out.println(ERROR_INPUT_LAST_NAME);
+                validInput = false;
+            }
+        }
+
+        // return string
+        return localLastName;
+    }
+
+    //******************************************************************
+
 
     // Input birth year and validate
     public static int inputBirthYear()
@@ -189,7 +240,7 @@ public class HooRU
 
         }
 
-        // Return the localuseryear in absolute value
+        // Return the localUserYear in absolute value
         return Math.abs(localUserYear);
 
     } // END inputBirthYear()
@@ -267,7 +318,7 @@ public class HooRU
                 // If program reaches here, user entered a valid birth month with no errors
                 else
                 {
-
+                    System.out.println(MONTH_INPUT_VALID);
                     validInput = true;
                 }
             }
@@ -470,6 +521,20 @@ public class HooRU
 
     //******************************************************************
 
+    // Calculate age using the LocalDate and Period import statements
+    public static long AgeCalculator()
+    {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate inputtedDate = LocalDate.of(userYear, userMonth, userDay);
+        Period p = Period.between(inputtedDate, currentDate);
+        ageYears = p.getYears();
+        ageMonths = p.getMonths();
+        ageDays = p.getDays();
+
+        return ageYears;
+    }
+
+    //******************************************************************
 
     // Find Astrological Sign
     public static String findAstrologicalSign() {
@@ -699,6 +764,8 @@ public class HooRU
         return astrologicalSign;
     }
 
+    //******************************************************************
+
     // Determine Chinese zodiac sign
     public static String findZodiacSign()
     {
@@ -893,6 +960,8 @@ public class HooRU
         return zodiacSign;
     }
 
+    //******************************************************************
+
     // Determine Chinese zodiacElement
     public static String findZodiacElement()
     {
@@ -1015,6 +1084,8 @@ public class HooRU
         return zodiacElement;
     }
 
+    //******************************************************************
+
     public static void displayBirthDay()
     {
         // Local variables (TO: displayInfo)
@@ -1029,17 +1100,17 @@ public class HooRU
         splitFirstLetter = dayOfWeek.substring(0, 1).toUpperCase();
         finalFormat = splitFirstLetter + dayOfWeek.substring(1);
 
-        outputStr += "Current User: " + userName + "\n";
+        outputStr += "Current User: " + firstName + " " + lastName + "\n";
         outputStr += "Inputted Current Date and Birthday Information: " + "\n";
         outputStr += "Today is: " + LocalDate.now() + "\n";
         outputStr += "Birth Year input: " + userYear + "\n";
         outputStr += "Birth Month input: " + userMonth + "\n";
         outputStr += "Birth Day input: " + userDay + "\n";
-        outputStr += "User's Birth Day Of Week: " + finalFormat + "\n";
-        outputStr += "User's Full Birth Day Formatted: " + userMonth + "/" + userDay  + "/" + userYear + "\n";
+        outputStr += "User's Birth Day of Week: " + finalFormat + "\n";
+        outputStr += "User's Full Date of Birth Formatted: " + monthName + " " + userDay  + ", " + userYear + "\n";
         outputStr += "\n";
         outputStr += "Calculated Current Age Information: " + "\n";
-        outputStr += "Your age is: " + "(CalculateAgeMethod)" + "\n";
+        outputStr += "Your age is: " + ageYears + " Years, " + ageMonths + " Months, and " + ageDays + " Days" + "\n";
         outputStr += "\n";
         outputStr += "Calculated Astrological Sign Information: " + "\n";
         outputStr += "Day of Year born: " + userDay + "\n";
@@ -1057,11 +1128,11 @@ public class HooRU
         outputStr += "Partners well with: " + zodiacPartners + "\n";
         outputStr += "Characteristics: " + zodiacCharacteristics + "\n";
 
-
         System.out.println(outputStr);
         JOptionPane.showMessageDialog(null, outputStr);
-
     }
+
+    //******************************************************************
 
     // Ask user if they would like to run the program again
     public static boolean inputRunProgram()
@@ -1080,13 +1151,4 @@ public class HooRU
 
         return true;
     }
-    //hi
-
-
-
-
-
-
-
-
 } // END public class HooRU
